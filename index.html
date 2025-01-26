@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>혐오·차별 표현 제보하기</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f5f5f5;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .header {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            margin-bottom: 1rem;
+            color: #333;
+            font-size: 1.8rem;
+        }
+
+        .header p {
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            -webkit-appearance: none;
+            appearance: none;
+            transition: border-color 0.2s;
+        }
+
+        input[type="text"]:focus, textarea:focus {
+            outline: none;
+            border-color: #0066cc;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .radio-group {
+            margin-top: 1rem;
+        }
+
+        .radio-option {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .radio-option:hover {
+            background-color: #f8f8f8;
+        }
+
+        .radio-option.selected {
+            background-color: #e3f2fd;
+            border-color: #0066cc;
+        }
+
+        .radio-option input[type="radio"] {
+            display: none;
+        }
+
+        .examples {
+            margin-top: 0.5rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        button {
+            background-color: #0066cc;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #0052a3;
+        }
+
+        .required {
+            color: #ff4444;
+        }
+
+        b {
+            background-color: #fff3cd;
+            padding: 0 2px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            width: 90%;
+            max-width: 600px;
+            margin: 50px auto;
+            border-radius: 8px;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .privacy-notice {
+            background-color: #f8f9fa;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+            white-space: pre-line;
+            border: 1px solid #dee2e6;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 1rem;
+        }
+
+        .modal-buttons button {
+            width: auto;
+            min-width: 100px;
+        }
+
+        .modal-buttons .cancel {
+            background-color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .header, .form-container {
+                padding: 1.5rem;
+            }
+
+            .modal-content {
+                margin: 20px auto;
+                padding: 1.5rem;
+                width: 95%;
+            }
+
+            .modal-buttons {
+                flex-direction: column;
+            }
+
+            .modal-buttons button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>혐오·차별 표현 제보하기</h1>
+            <p>우리 일상 속에서 쓰이는 혐오와 차별의 표현을 모아 사전을 제작하고 있습니다. 혐오를 알고 우리를 알면 백전백승, 우리 사회에 만연한 '혐오 문화'를 없애기 위해서는 어떤 표현이 혐오 표현이고, 어떤 표현이 차별 표현인지 알면 그 표현을 멀리하게 되고 자연스레 '혐오' 문화가 사라지리라 생각해요.</p>
+            <p>여러분께서 작성해주시는 내용은 검토를 통해 <b>혐오·차별</b> 사전에 등재됩니다. 혐오 척결을 위해 여러분의 많은 제보 부탁드릴게요!</p>
+        </div>
+
+        <div class="form-container">
+            <form id="hateSpeechForm">
+                <div class="form-group">
+                    <label for="expression">어떤 혐오·차별 표현을 제보하실 건가요? <span class="required">*</span></label>
+                    <input type="text" id="expression" placeholder="사전에서는 언어적인 표현만 다루고 있어요!" required>
+                </div>
+
+                <div class="form-group">
+                    <label id="type-group-label">어떤 종류의 혐오 표현인가요? <span class="required">*</span></label>
+                    <div class="radio-group" role="radiogroup" aria-labelledby="type-group-label">
+                        <div class="radio-option" tabindex="0" role="radio" aria-checked="false">
+                            <input type="radio" name="type" id="type1" value="부정적인 편견이나 고정관념 표출" required>
+                            <label for="type1">부정적인 편견이나 고정관념을 표출해요</label>
+                            <div class="examples">
+                                - 운전을 저렇게 하니까 <b>김여사</b> 소리를 듣지<br>
+                                - 역시 <b>그 지역</b> 출신이라서 그런다
+                            </div>
+                        </div>
+                        <div class="radio-option" tabindex="0" role="radio" aria-checked="false">
+                            <input type="radio" name="type" id="type2" value="비인격적 비유나 경멸적인 이름">
+                            <label for="type2">비인격적 비유나 경멸적인 이름을 붙여요</label>
+                            <div class="examples">
+                                - <b>맘충</b>, <b>꼴페미</b>, 급식<b>충</b>, <b>견</b>찰
+                            </div>
+                        </div>
+                        <div class="radio-option" tabindex="0" role="radio" aria-checked="false">
+                            <input type="radio" name="type" id="type3" value="웃음거리·조롱·호기심의 대상">
+                            <label for="type3">웃음거리나 조롱, 호기심의 대상으로 삼고 있어요</label>
+                            <div class="examples">
+                                - 장애인을 흉내내는 말투<br>
+                                - 흑인으로 분장하고 외국인 흉내내는 상황
+                            </div>
+                        </div>
+                        <div class="radio-option" tabindex="0" role="radio" aria-checked="false">
+                            <input type="radio" name="type" id="type4" value="보호·동정의 대상으로 묘사">
+                            <label for="type4">동등한 인격체가 아닌 보호·동정의 대상으로 묘사해요</label>
+                            <div class="examples">
+                                - <b>OO씨는 우리 팀의 꽃</b>이니까 그냥 쉬고 있어<br>
+                                - (집회에 참석한 청소년에게) <b>미래가 밝아요! 어린 나이에도 기특해요!</b>
+                            </div>
+                        </div>
+                        <div class="radio-option" tabindex="0" role="radio" aria-checked="false">
+                            <input type="radio" name="type" id="type5" value="질병·범죄 등 위험 초래라는 불분명한 공포감 유발">
+                            <label for="type5">질병·범죄 등 위험을 초래할 것이라는 불분명한 공포감을 유발해요</label>
+                            <div class="examples">
+                                - <b>동성애자 때문</b>에 <b>에이즈가 확산</b>한다<br>
+                                - <b>중국인</b>들이 몰려오니까 <b>코로나</b>가 퍼지는 거 아니냐?
+                            </div>
+                        </div>
+                        <div class="radio-option" tabindex="0" role="radio" aria-checked="false">
+                            <input type="radio" name="type" id="type6" value="차별, 적개심, 폭력 등 선동">
+                            <label for="type6">차별·적개심·폭력 등을 선동해요</label>
+                            <div class="examples">
+                                - <b>조선족 짱깨</b>들은 나가라!<br>
+                                - <b>선 넘으면 쳐맞는다</b>는 걸 보여줘야 해
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="origin">이 표현의 유래를 알고 계신가요?</label>
+                    <textarea id="origin"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="usage">이 표현이 어떤 식으로 사용되나요?</label>
+                    <textarea id="usage" placeholder="어떤 맥락에서 사용되는지 혐오 표현이 사용된 예문이 궁금해요"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="additional">추가로 덧붙이고 싶은 말이 있으신가요?</label>
+                    <textarea id="additional"></textarea>
+                </div>
+
+                <button type="submit">제출하기</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="confirmModal">
+        <div class="modal-content">
+            <h3>작성해주셔서 감사합니다!</h3>
+            <p>'제출하기'를 누르면 작성해주신 내용과 함께, 작성자님의 개인정보를 일부 수집하고 있어요. 아래 내용을 잘 읽고 제출 여부를 선택해주세요.</p>
+            
+            <div class="privacy-notice">
+                <li>수집하는 개인정보는 IP 주소(IP Address)이에요.</li>
+                <li>수집된 개인정보는 추후 스팸 관리, 악성 행위에 대한 법적 대응에 사용될 수 있고 그 외의 용도로는 사용되지 않아요.</li>
+                <li>수집된 모든 개인정보는 최대 3년간 보관될 수 있으며, 보유 중에는 외부로 유출되지 않도록 안전하게 관리하고 있어요.</li>
+                <li>수집된 개인정보는 절대로 이용자의 사전 동의 없이 개인정보를 제3자에게 제공하지 않아요.</li>
+                <li>개인정보 수집에 동의하지 않으실 수도 있어요. 이 경우 해당 서비스를 이용하실 수 없어요.</li>
+            </div>
+            
+            <p>'제출하기'를 누르시면 위 개인정보 취급방침에 동의하는 것으로 간주해요.</p>
+            
+            <div class="modal-buttons">
+                <button type="button" class="cancel" onclick="closeModal()">취소</button>
+                <button type="button" onclick="submitForm()">제출하기</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let userIP = '';
+
+        window.getIP = function(json) {
+            userIP = json.ip;
+        };
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const script = document.createElement("script");
+            script.src = "https://ipinfo.io/?format=jsonp&callback=getIP";
+            document.body.appendChild(script);
+
+            const radioOptions = document.querySelectorAll('.radio-option');
+            
+            radioOptions.forEach(option => {
+                const radio = option.querySelector('input[type="radio"]');
+                
+                option.addEventListener('click', () => {
+                    radio.checked = true;
+                    updateSelection();
+                });
+                
+                option.addEventListener('keydown', (e) => {
+                    if (e.key === ' ' || e.key === 'Enter') {
+                        e.preventDefault();
+                        radio.checked = true;
+                        updateSelection();
+                    }
+                });
+            });
+
+            function updateSelection() {
+                radioOptions.forEach(opt => {
+                    opt.classList.toggle('selected', opt.querySelector('input[type="radio"]').checked);
+                    opt.setAttribute('aria-checked', opt.querySelector('input[type="radio"]').checked);
+                });
+            }
+        });
+
+        document.getElementById('hateSpeechForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            document.getElementById('confirmModal').style.display = 'block';
+        });
+
+        function closeModal() {
+            document.getElementById('confirmModal').style.display = 'none';
+        }
+
+        async function submitForm() {
+            const formData = new FormData();
+            formData.append('entry.1947599713', userIP);
+            formData.append('entry.1544104246', document.getElementById('expression').value);
+            formData.append('entry.899392007', document.querySelector('input[name="type"]:checked').value);
+            formData.append('entry.1325163445', document.getElementById('origin').value);
+            formData.append('entry.1553770604', document.getElementById('usage').value);
+            formData.append('entry.1944408752', document.getElementById('additional').value);
+
+            try {
+                await fetch('https://docs.google.com/forms/d/e/1FAIpQLSfAQXqVSRUCmwjoqUxEtn09pKV1lgqMaUOMUWAsiagFHI5iAg/formResponse', {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: formData
+                });
+
+                alert('제보가 성공적으로 제출되었습니다.');
+                document.getElementById('hateSpeechForm').reset();
+                document.querySelectorAll('.radio-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                    opt.setAttribute('aria-checked', 'false');
+                });
+                closeModal();
+            } catch (error) {
+                console.error('Error:', error);
+                alert('제출 중 오류가 발생했습니다. 다시 시도해주세요.');
+            }
+        }
+        window.onclick = function(event) {
+            const modal = document.getElementById('confirmModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
