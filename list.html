@@ -192,7 +192,7 @@
     <div class="container">
         <div class="header">
             <h1>혐오표현 사전 등재 투표</h1>
-            <p>시민들께서 제보해주신 혐오와 차별의 의미가 담긴 단어 중 사전에 등재할 단어를 투표해주세요. 등재를 찬성한다면 '찬성', 반대한다면 '반대'를 눌러 투표하실 수 있습니다.</p>
+            <p>시민들께서 제보해주신 혐오와 차별의 의미가 담긴 단어 중 사전에 등재할 단어를 투표해주세요. 해당 표현이 우선 등재됐으면 좋겠다 하시면 '추천', 등재를 원하지 않거나 반대하는 경우 '비추천'을 눌러주세요.</p>
             <p>단어를 누르면 제보자가 작성해주신 상세 정보를 확인하실 수 있습니다.</p>
         </div>
         <div id="vote-container"></div>
@@ -311,7 +311,7 @@
 
                 const agreeButton = document.createElement("button");
                 agreeButton.className = "btn btn-true";
-                agreeButton.textContent = `찬성 (${item.agree})`;
+                agreeButton.textContent = `추천 (${item.agree})`;
                 agreeButton.disabled = selectedVotes[item.name];
                 agreeButton.onclick = (e) => {
                     e.stopPropagation();
@@ -320,7 +320,7 @@
 
                 const disagreeButton = document.createElement("button");
                 disagreeButton.className = "btn btn-false";
-                disagreeButton.textContent = `반대 (${item.disagree})`;
+                disagreeButton.textContent = `비추천 (${item.disagree})`;
                 disagreeButton.disabled = selectedVotes[item.name];
                 disagreeButton.onclick = (e) => {
                     e.stopPropagation();
@@ -345,7 +345,7 @@
             selectedVotes[name] = true;
             saveVotedItems();
             
-            alert(`${name}에 대해 ${isAgree ? "찬성" : "반대"}를 선택했습니다.`);
+            alert(`${name}에 대해 ${isAgree ? "추천" : "비추천"}을 선택했습니다.`);
 
             const voteItem = voteData.find(item => item.name === name);
             if (voteItem) {
